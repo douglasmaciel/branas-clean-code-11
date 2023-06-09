@@ -1,4 +1,4 @@
-import { Product } from './main';
+import { Product } from './Product';
 
 test('Deve criar um produto', () => {
   const product = new Product(
