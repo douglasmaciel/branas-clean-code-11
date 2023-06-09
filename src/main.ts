@@ -4,8 +4,8 @@ export class Product {
   #price: number;
   #quantity: number;
 
-  constructor(d: string, p: number, q: number) {
-    this.#id = crypto.randomUUID();
+  constructor(id: string, d: string, p: number, q: number) {
+    this.#id = id;
     this.#description = d;
     this.#price = p;
     this.#quantity = q;
