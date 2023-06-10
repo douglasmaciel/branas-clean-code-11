@@ -1,20 +1,27 @@
 import { Client } from './Client';
+import { Coupon } from './Coupon';
 import { Product } from './Product';
 
 export class Order {
   #id: string;
   #items: { product: Product; quantity: number }[];
   #client: Client;
+  #coupon: Coupon | null;
 
   constructor(id: string, client: Client) {
     this.#id = id;
     this.#client = client;
     this.#items = [];
+    this.#coupon = null;
   }
 
   addProduct(product: Product, quantity: number) {
     this.#items.push({ product, quantity });
     return this;
+  }
+
+  addCoupon(coupon: Coupon) {
+    this.#coupon = coupon;
   }
 
   get id() {
@@ -30,9 +37,12 @@ export class Order {
   }
 
   get total() {
-    return this.#items.reduce(
+    const sum = this.#items.reduce(
       (sum, item) => (sum += item.product.price * item.quantity),
       0
     );
+    const discount = this.#coupon ? sum * this.#coupon.discount : 0;
+    const total = sum - discount;
+    return total;
   }
 }
