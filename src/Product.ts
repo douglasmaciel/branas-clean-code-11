@@ -11,19 +11,19 @@ export class Product {
     this.#quantity = q;
   }
 
-  public get id() {
+  get id() {
     return this.#id;
   }
 
-  public get description() {
+  get description() {
     return this.#description;
   }
 
-  public get price() {
+  get price() {
     return this.#price;
   }
 
-  public get quantity() {
+  get quantity() {
     return this.#quantity;
   }
 }
