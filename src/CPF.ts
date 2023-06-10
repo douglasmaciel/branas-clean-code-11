@@ -57,6 +57,10 @@ export class CPF {
   get numericValue() {
     return this.#value.replace(/\D/g, '');
   }
+
+  isEqualTo(cpf: CPF) {
+    return this.#value === cpf.value;
+  }
 }
 
 export class InvalidCPF extends Error {
