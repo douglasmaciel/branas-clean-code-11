@@ -10,4 +10,8 @@ export class Client {
   get cpf() {
     return this.#cpf.value;
   }
+
+  isEqualTo(client: Client) {
+    return this.#cpf.isEqualTo(new CPF(client.cpf));
+  }
 }
