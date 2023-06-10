@@ -17,8 +17,10 @@ test('Deve criar um pedido com 3 produtos e calcular o valor total', () => {
 });
 
 test('Deve criar um pedido com 3 produtos, associar um cupom de desconto e calcular o valor total', () => {
-  const sum = 2 * 5 + 1 * 7 + 5 * 3;
+  const totalBeforeDiscount = 2 * 5 + 1 * 7 + 5 * 3;
   const discount = 0.1;
+  const totalAfterDiscount =
+    totalBeforeDiscount - totalBeforeDiscount * discount;
   const product1 = new Product('id-1', 'Descrição 1', 5, 10);
   const product2 = new Product('id-2', 'Descrição 2', 7, 20);
   const product3 = new Product('id-3', 'Descrição 3', 3, 30);
@@ -30,5 +32,5 @@ test('Deve criar um pedido com 3 produtos, associar um cupom de desconto e calcu
   expect(order.id).toBe('id-order');
   expect(order.client.isEqualTo(client)).toBe(true);
   expect(order.countProducts).toBe(3);
-  expect(order.total).toBe(sum - sum * discount);
+  expect(order.total).toBe(totalAfterDiscount);
 });

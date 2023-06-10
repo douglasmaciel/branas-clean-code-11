@@ -37,12 +37,14 @@ export class Order {
   }
 
   get total() {
-    const sum = this.#items.reduce(
+    const totalBeforeDiscount = this.#items.reduce(
       (sum, item) => (sum += item.product.price * item.quantity),
       0
     );
-    const discount = this.#coupon ? sum * this.#coupon.discount : 0;
-    const total = sum - discount;
-    return total;
+    const discount = this.#coupon
+      ? totalBeforeDiscount * this.#coupon.discount
+      : 0;
+    const totalAfterDiscount = totalBeforeDiscount - discount;
+    return totalAfterDiscount;
   }
 }
