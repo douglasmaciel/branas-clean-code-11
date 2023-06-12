@@ -7,24 +7,34 @@ export class CPF {
   }
 
   private validate() {
-    if (this.#value.search(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/) === -1)
-      throw new InvalidCPF();
-    if (
-      this.numericValue
-        .split('')
-        .every((el) => el === this.numericValue.charAt(0))
-    )
-      throw new InvalidCPF();
-    if (
-      parseInt(this.#value.charAt(12)) !==
+    if (!this.isValidFormat()) throw new InvalidCPF();
+    if (this.isAllDigitsEqual()) throw new InvalidCPF();
+    if (!this.isFirstVerificationDigitValid()) throw new InvalidCPF();
+    if (!this.isSecondVerificationDigitValid()) throw new InvalidCPF();
+  }
+
+  private isValidFormat() {
+    return this.#value.search(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/) !== -1;
+  }
+
+  private isAllDigitsEqual() {
+    return this.numericValue
+      .split('')
+      .every((el) => el === this.numericValue.charAt(0));
+  }
+
+  private isFirstVerificationDigitValid() {
+    return (
+      parseInt(this.numericValue.charAt(9)) ===
       this.calculateFirstVerificationDigit()
-    )
-      throw new InvalidCPF();
-    if (
-      parseInt(this.#value.charAt(13)) !==
+    );
+  }
+
+  private isSecondVerificationDigitValid() {
+    return (
+      parseInt(this.numericValue.charAt(10)) ===
       this.calculateSecondVerificationDigit()
-    )
-      throw new InvalidCPF();
+    );
   }
 
   private calculateFirstVerificationDigit(): number {
@@ -41,10 +51,9 @@ export class CPF {
   private calculateSecondVerificationDigit(): number {
     const numericCPF = this.numericValue;
     let sum = 0;
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 10; i++) {
       sum += (11 - i) * parseInt(numericCPF.charAt(i));
     }
-    sum += 2 * this.calculateFirstVerificationDigit();
     const remainder = sum % 11;
     if (remainder < 2) return 0;
     else return 11 - remainder;

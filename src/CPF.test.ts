@@ -1,17 +1,23 @@
 import { CPF, InvalidCPF } from './CPF';
 
-test('Deve criar um objeto CPF', () => {
-  const cpf = new CPF('659.634.004-06');
-  expect(cpf.value).toBe('659.634.004-06');
-});
+test.each(['659.634.004-06', '179.019.480-60', '693.650.144-33'])(
+  'Deve criar um objeto CPF',
+  (cpf) => {
+    const validCPF = new CPF(cpf);
+    expect(validCPF.value).toBe(cpf);
+  }
+);
 
-test('Deve lançar uma exceção caso valor do cpf seja inválido', () => {
-  expect(() => new CPF('cpf-invalido')).toThrow(InvalidCPF);
-  expect(() => new CPF('659.634.00406')).toThrow(InvalidCPF);
-  expect(() => new CPF('659634.004-06')).toThrow(InvalidCPF);
-  expect(() => new CPF('659.634.004-16')).toThrow(InvalidCPF);
-  expect(() => new CPF('659.634.004-09')).toThrow(InvalidCPF);
-  expect(() => new CPF('111.111.111-11')).toThrow(InvalidCPF);
+test.each([
+  '',
+  'cpf-invalido',
+  '659.634.00406',
+  '659634.004-06',
+  '659.634.004-16',
+  '659.634.004-09',
+  '111.111.111-11',
+])('Deve lançar uma exceção caso valor do cpf seja inválido', (cpf) => {
+  expect(() => new CPF(cpf)).toThrow(InvalidCPF);
 });
 
 test('Devem ser iguais CPFs com o mesmo valor', () => {
