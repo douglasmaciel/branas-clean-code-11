@@ -1,4 +1,4 @@
-import { CPF } from './CPF';
+import { CPF } from '../valueObject/CPF';
 
 export class Client {
   #cpf: CPF;
