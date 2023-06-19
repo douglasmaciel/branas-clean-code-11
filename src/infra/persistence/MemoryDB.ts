@@ -1,4 +1,6 @@
-export class MemoryDB<T> {
+import { IPersistence } from '../../application/IPersistence';
+
+export class MemoryDB<T> implements IPersistence<T> {
   #storage: Map<string, T>;
 
   constructor() {
