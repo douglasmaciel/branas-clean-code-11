@@ -2,17 +2,17 @@ import { IPersistence } from '../IPersistence';
 import { Order } from '../../domain/entity/Order';
 
 export class OrderRepository {
-  #storage: IPersistence<Order>;
+  persistenceGateway: IPersistence<Order>;
 
-  constructor(p: IPersistence<Order>) {
-    this.#storage = p;
+  constructor(persistenceGateway: IPersistence<Order>) {
+    this.persistenceGateway = persistenceGateway;
   }
 
-  add(o: Order) {
-    this.#storage.add(o.id, o);
+  add(order: Order) {
+    this.persistenceGateway.add(order.id, order);
   }
 
   get(key: string): Order | undefined {
-    return this.#storage.get(key);
+    return this.persistenceGateway.get(key);
   }
 }
