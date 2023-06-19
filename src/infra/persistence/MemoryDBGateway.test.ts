@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { MemoryDB } from './MemoryDB';
+import { MemoryDB } from './MemoryDBGateway';
 
 test('Deve armazenar um objeto', () => {
   const key = 'user 1';

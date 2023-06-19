@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Client } from '../../domain/entity/Client';
 import { Order } from '../../domain/entity/Order';
-import { MemoryDB } from '../../infra/persistence/MemoryDB';
+import { MemoryDB } from '../../infra/persistence/MemoryDBGateway';
 import { OrderRepository } from './OrderRepository';
 
 test('Deve armazenar um pedido', () => {
