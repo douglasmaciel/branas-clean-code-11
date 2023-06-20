@@ -27,6 +27,7 @@
     "typescript": "*"
   },
   "dependencies": {
+    "dayjs": "^1.11.8",
     "lodash": "^4.17.21"
   }
 }
