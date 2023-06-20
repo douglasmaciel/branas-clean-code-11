@@ -1,23 +1,15 @@
 import dayjs from 'dayjs';
+import { Discount } from '../valueObject/Discount';
 
 export class Coupon {
   #id: string;
-  #discount: number;
+  #discount: Discount;
   #expiresAt: dayjs.Dayjs;
 
   constructor(id: string, discount: number, expiresAt: dayjs.Dayjs) {
     this.#id = id;
-    this.#discount = discount;
+    this.#discount = new Discount(discount);
     this.#expiresAt = expiresAt;
-    this.validate();
-  }
-
-  private validate() {
-    if (!this.isDiscountBetween(0, 1)) throw new InvalidDiscount();
-  }
-
-  private isDiscountBetween(start: number, end: number) {
-    return this.#discount >= start && this.#discount <= end;
   }
 
   get id() {
@@ -25,17 +17,10 @@ export class Coupon {
   }
 
   get discount() {
-    return this.#discount;
+    return this.#discount.value;
   }
 
   get expiresAt() {
     return this.#expiresAt;
-  }
-}
-
-export class InvalidDiscount extends Error {
-  constructor() {
-    super('');
-    this.name = 'InvalidDiscount';
   }
 }
