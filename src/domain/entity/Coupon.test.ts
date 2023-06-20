@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Coupon, InvalidDiscount, InvalidExpiryDate } from './Coupon';
+import { Coupon, InvalidDiscount } from './Coupon';
 
 test('Deve criar um cupom de desconto', () => {
   const expiresAt = dayjs().add(1, 'M');
