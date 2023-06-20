@@ -23,9 +23,9 @@ test('Deve criar um pedido com 3 produtos, associar um cupom de desconto e calcu
   const expiryDate = dayjs().add(1, 'M');
   const totalAfterDiscount =
     totalBeforeDiscount - totalBeforeDiscount * discount;
-  const product1 = new Product('id-1', 'Descrição 1', 5, 10);
-  const product2 = new Product('id-2', 'Descrição 2', 7, 20);
-  const product3 = new Product('id-3', 'Descrição 3', 3, 30);
+  const product1 = new Product('id-1', 'Descrição 1', 5);
+  const product2 = new Product('id-2', 'Descrição 2', 7);
+  const product3 = new Product('id-3', 'Descrição 3', 3);
   const client = new Client('659.634.004-06');
   const order = new Order('id-order', client);
   const cupom = new Coupon('id-cupom', discount, expiryDate);
@@ -41,9 +41,9 @@ test('Deve criar um pedido com 3 produtos, associar um cupom de desconto expirad
   const total = 2 * 5 + 1 * 7 + 5 * 3;
   const discount = 0.1;
   const invalidExpiryDate = dayjs().subtract(1, 's');
-  const product1 = new Product('id-1', 'Descrição 1', 5, 10);
-  const product2 = new Product('id-2', 'Descrição 2', 7, 20);
-  const product3 = new Product('id-3', 'Descrição 3', 3, 30);
+  const product1 = new Product('id-1', 'Descrição 1', 5);
+  const product2 = new Product('id-2', 'Descrição 2', 7);
+  const product3 = new Product('id-3', 'Descrição 3', 3);
   const client = new Client('659.634.004-06');
   const order = new Order('id-order', client);
   const cupom = new Coupon('id-cupom', discount, invalidExpiryDate);
