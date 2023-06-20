@@ -17,7 +17,7 @@ export class Coupon {
   }
 
   get discount() {
-    return this.#discount.value;
+    return this.#expiresAt.isBefore(dayjs()) ? 0 : this.#discount.value;
   }
 
   get expiresAt() {
