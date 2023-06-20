@@ -27,6 +27,10 @@ export class Coupon {
   get discount() {
     return this.#discount;
   }
+
+  get expiresAt() {
+    return this.#expiresAt;
+  }
 }
 
 export class InvalidDiscount extends Error {
