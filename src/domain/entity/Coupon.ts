@@ -13,7 +13,11 @@ export class Coupon {
   }
 
   private validate() {
-    if (this.#discount < 0 || this.#discount > 1) throw new InvalidDiscount();
+    if (!this.isDiscountBetween(0, 1)) throw new InvalidDiscount();
+  }
+
+  private isDiscountBetween(start: number, end: number) {
+    return this.#discount >= start && this.#discount <= end;
   }
 
   get id() {
