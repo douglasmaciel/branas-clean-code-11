@@ -2,13 +2,11 @@ export class Product {
   #id: string;
   #description: string;
   #price: number;
-  #quantity: number;
 
-  constructor(id: string, d: string, p: number, q: number) {
+  constructor(id: string, d: string, p: number) {
     this.#id = id;
     this.#description = d;
     this.#price = p;
-    this.#quantity = q;
   }
 
   get id() {
@@ -21,9 +19,5 @@ export class Product {
 
   get price() {
     return this.#price;
-  }
-
-  get quantity() {
-    return this.#quantity;
   }
 }
