@@ -1,10 +1,11 @@
+import { OrderItem } from '../valueObject/OrderItem';
 import { Client } from './Client';
 import { Coupon } from './Coupon';
 import { Product } from './Product';
 
 export class Order {
   #id: string;
-  #items: { product: Product; quantity: number }[];
+  #items: OrderItem[];
   #client: Client;
   #coupon: Coupon | null;
 
@@ -16,7 +17,9 @@ export class Order {
   }
 
   addProduct(product: Product, quantity: number) {
-    this.#items.push({ product, quantity });
+    if (this.#items.some((i) => i.product.id === product.id))
+      throw new DuplicateProduct();
+    this.#items.push(new OrderItem(product, quantity));
     return this;
   }
 
@@ -46,5 +49,12 @@ export class Order {
       : 0;
     const totalAfterDiscount = totalBeforeDiscount - discount;
     return totalAfterDiscount;
+  }
+}
+
+export class DuplicateProduct extends Error {
+  constructor() {
+    super('');
+    this.name = 'DuplicateProduct';
   }
 }
