@@ -14,7 +14,6 @@ export class Coupon {
 
   private validate() {
     if (this.#discount < 0 || this.#discount > 1) throw new InvalidDiscount();
-    if (this.#expiresAt?.isBefore(dayjs())) throw new InvalidExpiryDate();
   }
 
   get id() {
@@ -30,12 +29,5 @@ export class InvalidDiscount extends Error {
   constructor() {
     super('');
     this.name = 'InvalidDiscount';
-  }
-}
-
-export class InvalidExpiryDate extends Error {
-  constructor() {
-    super('');
-    this.name = 'InvalidExpiryDate';
   }
 }

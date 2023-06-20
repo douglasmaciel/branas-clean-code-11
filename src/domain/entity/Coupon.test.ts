@@ -17,12 +17,3 @@ test.each([-1, 1.2])(
     );
   }
 );
-
-test.each([dayjs(), dayjs().subtract(1, 's')])(
-  'Deve lançar uma exceção caso seja fornecido uma data de expiração inválida',
-  (expiresAt) => {
-    expect(() => new Coupon('id-cupom', 0.1, expiresAt)).toThrow(
-      InvalidExpiryDate
-    );
-  }
-);
