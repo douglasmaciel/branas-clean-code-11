@@ -70,9 +70,140 @@ test('Deve lançar exceção caso seja adicionado a um pedido um produto já exi
   ).toThrow(DuplicateProduct);
 });
 
-test('Deve retornar o valor mínimo do frete caso o valor calculado seja menor', () => {
-  const dimension = new Dimension(1, 1, 1, 1);
-  const product = new Product('id-1', 'Descrição 1', 5, dimension);
-  order.addProduct(product, 1);
-  expect(order.shippingCost).toBe(10);
-});
+test.each([
+  {
+    productList: [
+      {
+        product: new Product(
+          'id-1',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 1)
+        ),
+        quantity: 1,
+      },
+    ],
+    shippingCost: 10,
+  },
+  {
+    productList: [
+      {
+        product: new Product(
+          'id-1',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 0.1)
+        ),
+        quantity: 1,
+      },
+      {
+        product: new Product(
+          'id-2',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 0.1)
+        ),
+        quantity: 2,
+      },
+      {
+        product: new Product(
+          'id-3',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 0.1)
+        ),
+        quantity: 3,
+      },
+    ],
+    shippingCost: 10,
+  },
+])(
+  'Deve retornar o valor mínimo do frete caso o valor calculado seja menor',
+  (input) => {
+    for (let p of input.productList) order.addProduct(p.product, p.quantity);
+    expect(order.shippingCost).toBe(input.shippingCost);
+  }
+);
+
+test.each([
+  {
+    productList: [
+      {
+        product: new Product(
+          'id-1',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 5)
+        ),
+        quantity: 1,
+      },
+    ],
+    shippingCost: (1000 * 5 * 1) / 100,
+  },
+  {
+    productList: [
+      {
+        product: new Product(
+          'id-1',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 3)
+        ),
+        quantity: 1,
+      },
+      {
+        product: new Product(
+          'id-2',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 4)
+        ),
+        quantity: 2,
+      },
+    ],
+    shippingCost: (1000 * (3 * 1 + 4 * 2)) / 100,
+  },
+  {
+    productList: [
+      {
+        product: new Product(
+          'id-1',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 5)
+        ),
+        quantity: 3,
+      },
+    ],
+    shippingCost: (1000 * 5 * 3) / 100,
+  },
+  {
+    productList: [
+      {
+        product: new Product(
+          'id-1',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 1)
+        ),
+        quantity: 2,
+      },
+      {
+        product: new Product(
+          'id-2',
+          'Descrição 1',
+          5,
+          new Dimension(10, 20, 15, 5)
+        ),
+        quantity: 3,
+      },
+    ],
+    shippingCost: (1000 * (1 * 2 + 5 * 3)) / 100,
+  },
+])(
+  'Deve retornar o valor do frete de acordo com o peso (em kg) dos produtos',
+  (input) => {
+    for (let p of input.productList) order.addProduct(p.product, p.quantity);
+    expect(order.shippingCost).toBe(input.shippingCost);
+  }
+);

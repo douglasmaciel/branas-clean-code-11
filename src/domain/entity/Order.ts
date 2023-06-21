@@ -52,7 +52,11 @@ export class Order {
   }
 
   get shippingCost() {
-    return 10;
+    const value = this.#items.reduce(
+      (sum, i) => sum + (1000 * i.product.weight * i.quantity) / 100,
+      0
+    );
+    return value <= 10 ? 10 : value;
   }
 }
 
