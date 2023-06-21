@@ -3,10 +3,10 @@ export class Product {
   #description: string;
   #price: number;
 
-  constructor(id: string, d: string, p: number) {
+  constructor(id: string, description: string, price: number) {
     this.#id = id;
-    this.#description = d;
-    this.#price = p;
+    this.#description = description;
+    this.#price = price;
   }
 
   get id() {
