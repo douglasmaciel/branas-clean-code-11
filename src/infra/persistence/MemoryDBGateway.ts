@@ -1,4 +1,4 @@
-import { IPersistence } from '../IPersistence';
+import { IPersistence } from '../../domain/IPersistence';
 
 export class MemoryDB<T> implements IPersistence<T> {
   #storage: Map<string, T>;

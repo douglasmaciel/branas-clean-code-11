@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { Client } from '../../domain/entity/Client';
-import { Order } from '../../domain/entity/Order';
+import { Client } from '../entity/Client';
+import { Order } from '../entity/Order';
 import { MemoryDB } from '../../infra/persistence/MemoryDBGateway';
 import { OrderRepository } from './OrderRepository';
 

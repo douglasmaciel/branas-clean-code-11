@@ -1,5 +1,5 @@
 import { IPersistence } from '../IPersistence';
-import { Order } from '../../domain/entity/Order';
+import { Order } from '../entity/Order';
 
 export class OrderRepository {
   persistenceGateway: IPersistence<Order>;
