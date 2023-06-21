@@ -50,6 +50,10 @@ export class Order {
     const totalAfterDiscount = totalBeforeDiscount - discount;
     return totalAfterDiscount;
   }
+
+  get shippingCost() {
+    return 10;
+  }
 }
 
 export class DuplicateProduct extends Error {

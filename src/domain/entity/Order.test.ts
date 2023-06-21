@@ -69,3 +69,10 @@ test('Deve lançar exceção caso seja adicionado a um pedido um produto já exi
     order.addProduct(product1, 1).addProduct(otherProduct1, 2)
   ).toThrow(DuplicateProduct);
 });
+
+test('Deve retornar o valor mínimo do frete caso o valor calculado seja menor', () => {
+  const dimension = new Dimension(1, 1, 1, 1);
+  const product = new Product('id-1', 'Descrição 1', 5, dimension);
+  order.addProduct(product, 1);
+  expect(order.shippingCost).toBe(10);
+});
